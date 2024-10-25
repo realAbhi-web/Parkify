@@ -2,15 +2,10 @@ services:
   - type: web
     name: your-service-name
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    buildCommand: |
+      apt-get update && \
+      apt-get install -y gobject-introspection libgirepository1.0-dev build-essential libglib2.0-dev && \
+      pip install -r requirements.txt
+    startCommand: python your_start_script.py
     plan: free
     autoDeploy: true
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
-    systemPackages:
-      - gobject-introspection
-      - libgirepository1.0-dev
-      - build-essential
-      - libglib2.0-dev
